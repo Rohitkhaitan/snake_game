@@ -7,18 +7,6 @@ let d;
 
 document.addEventListener("keydown", direction);
 
-function direction(event){
-    if(event.keyCode == 37 && d != "RIGHT"){
-        d= "LEFT";
-    }else if(event.keyCode == 38 && d != "DOWN"){
-        d = "UP";
-    }else if(event.keyCode == 39 && d != "LEFT"){
-        d = "RIGHT";
-    }else if(event.keyCode == 40 && d != "UP"){
-        d = "DOWN";
-    }
-}
-
 const ground = new Image();
 ground.src = './ground.png';
 
@@ -37,6 +25,27 @@ let food = {
 }
 
 let score = 0;
+
+function direction(event){
+    if(event.keyCode == 37 && d != "RIGHT"){
+        d= "LEFT";
+    }else if(event.keyCode == 38 && d != "DOWN"){
+        d = "UP";
+    }else if(event.keyCode == 39 && d != "LEFT"){
+        d = "RIGHT";
+    }else if(event.keyCode == 40 && d != "UP"){
+        d = "DOWN";
+    }
+}
+
+function collision(head, array){
+    for(let i = 0; i<array.length; i++) {
+        if(head.x == array[i].x && head.y == array[i].y){
+            return true;
+        }  
+    }
+    return false;
+}
 
 function draw() {
     ctx.drawImage(ground, 0, 0);
@@ -73,6 +82,12 @@ function draw() {
         x: snakeX,
         y: snakeY
     }
+
+    if (snakeX < box || snakeX > 17*box || snakeY < 3*box || snakeY > 17*box
+        || collision(newHead,snake)) {
+        clearInterval(game)
+    }
+
     snake.unshift(newHead);
 
     ctx.fillStyle = "white";
