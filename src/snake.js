@@ -8,10 +8,10 @@ let d;
 document.addEventListener("keydown", direction);
 
 const ground = new Image();
-ground.src = './ground.png';
+ground.src = '../images/ground.png';
 
 const foodImg = new Image();
-foodImg.src = './food.png';
+foodImg.src = '../images/food.png';
 
 let snake = [];
 snake[0] = {
